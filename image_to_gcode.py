@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 import os
@@ -6,7 +6,6 @@ import sys
 import cv2 as cv
 import argparse
 import termcolor
-import ast
 import copy
 
 ignore_color = (255, 255, 255) #white
@@ -101,9 +100,22 @@ class ImageToGcode():
                 elif color == self.black:
                     rowStr += " "
                 else:
-                    print(color)
+                    # print(color)
                     rowStr += termcolor.colored(" ", 'white', 'on_white')
-            print(rowStr)
+            # print(rowStr)
+
+
+def pairFrom ( string ):
+    
+    numbers = string        \
+        .replace('[','')    \
+        .replace(']','')    \
+        .strip()            \
+        .split(',')
+    
+    numbers = map(float,numbers)
+    
+    return tuple(e for e in numbers)
 
 
 if __name__ == "__main__":
@@ -162,16 +174,17 @@ if __name__ == "__main__":
         sys.exit(0)  # Exit after help display
 
     args = parser.parse_args()
-    offsets = [ast.literal_eval(args.red),
-               ast.literal_eval(args.green),
-               ast.literal_eval(args.blue),
-               ast.literal_eval(args.black)
+    
+    offsets = [pairFrom(args.red),
+               pairFrom(args.green),
+               pairFrom(args.blue),
+               pairFrom(args.black)
                ]
 
     imageProcessor = ImageToGcode(img=args.input,
                                   spread=float(args.spread),
                                   nozzles=float(args.nozzles),
-                                  area=ast.literal_eval(args.area),
+                                  area=pairFrom(args.area),
                                   feedrate=float(args.feedrate),
                                   offsets=offsets
                                   )
