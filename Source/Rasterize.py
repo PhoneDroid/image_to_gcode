@@ -5,16 +5,20 @@ from Input import pairFrom
 
 def rasterize ( options ):
 
-    offsets = [pairFrom(options.red),
-               pairFrom(options.green),
-               pairFrom(options.blue),
-               pairFrom(options.black)
-               ]
+    offsets = [
+        options.red ,
+        options.green ,
+        options.blue ,
+        options.black        
+    ]
+    
+    offsets = list(map(pairFrom,offsets))
 
-    imageProcessor = ImageToGcode(img=options.input,
-                                  spread=float(options.spread),
-                                  nozzles=float(options.nozzles),
-                                  area=pairFrom(options.area),
-                                  feedrate=float(options.feedrate),
-                                  offsets=offsets
-                                  )
+    ImageToGcode (
+        feedrate = float(options.feedrate) ,
+        nozzles = float(options.nozzles) ,
+        offsets = offsets ,
+        spread = float(options.spread) ,
+        area = pairFrom(options.area) ,
+        img = options.input
+    )
