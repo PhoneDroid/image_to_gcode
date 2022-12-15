@@ -20,15 +20,8 @@ https://github.com/sjkelly/Marlin/tree/hpc6602
 ## Install
 On a Ubuntu or Debian system, the dependencies can be installed with the lines below.
 
-**From apt:**
-```
-sudo apt-get install python-opencv
-```
-
-**From pip:** (Use `sudo apt-get install python-pip` to get pip)
-```
-sudo pip install ast
-sudo pip install termcolor
+```sh
+pip install -r Source/Dependencies.txt
 ```
 
 ## How to use
